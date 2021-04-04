@@ -10,5 +10,15 @@ $(".btn").click(function () {
 });
 
 function Income() {
-  $();
+  const transaction = {
+    name: $("#name").val(),
+    amount: $("#amount").val(),
+    date: $("#date").val(),
+  };
+  $("#total-income").text(
+    parseInt($("#total-income").text()) + parseInt(transaction.amount)
+  );
+  $("#name").val(" ");
+  $("#amount").val(" ");
+  $("#date").val(" ");
 }
