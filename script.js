@@ -1,11 +1,19 @@
 transactions = [];
 
+$(document).ready(function () {
+  $("#date").val(new Date().toDateInputValue());
+});
+
 $(".btn").click(function () {
-  let clicked = $(this).attr("name");
-  if (clicked == "income") {
-    Income();
-  } else if (clicked == "expense") {
-    Expense();
+  if ($("#amount").val() === "" || $("#name  ").val() === "") {
+    alert("Please Fill all the input");
+  } else {
+    let clicked = $(this).attr("name");
+    if (clicked == "income") {
+      Income();
+    } else if (clicked == "expense") {
+      Expense();
+    }
   }
 });
 
@@ -20,9 +28,8 @@ function Income() {
   $("#total-income").text(
     parseInt($("#total-income").text()) + parseInt(transaction.amount)
   );
-  $("#name").val(" ");
-  $("#amount").val(" ");
-  $("#date").val(" ");
+  $("#name").val("");
+  $("#amount").val("");
   Balance();
   Table();
 }
@@ -41,7 +48,6 @@ function Expense() {
 
   $("#name").val(" ");
   $("#amount").val(" ");
-  $("#date").val(" ");
   Balance();
   Table();
 }
@@ -54,19 +60,32 @@ function Balance() {
 function Table() {
   $("tbody").text("");
   transactions.forEach(function (element) {
-    $("tbody").prepend(
-      "<tr><td>" +
-        element.name +
-        "</td> <td>" +
-        element.amount +
-        "</td> <td>" +
-        element.date +
-        "</td></tr>"
-    );
     if (element.type === "income") {
-      $("tbody tr").addClass("table-success");
-    } else if (element.type === "expense") {
-      $("tbody tr").addClass("table-danger");
+      $("tbody").prepend(
+        "<tr class='table-success'> <td>" +
+          element.name +
+          "</td> <td>" +
+          element.amount +
+          "</td> <td>" +
+          element.date +
+          "</td></tr>"
+      );
+    } else {
+      $("tbody").prepend(
+        "<tr class='table-danger'> <td>" +
+          element.name +
+          "</td> <td>" +
+          element.amount +
+          "</td> <td>" +
+          element.date +
+          "</td></tr>"
+      );
     }
   });
 }
+
+Date.prototype.toDateInputValue = function () {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+};
