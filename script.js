@@ -1,4 +1,6 @@
 transactions = [];
+let income = 0;
+let expense = 0;
 
 $(document).ready(function () {
   $("#date").val(new Date().toDateInputValue());
@@ -25,9 +27,6 @@ function Income() {
     type: "income",
   };
   transactions.push(transaction);
-  $("#total-income").text(
-    parseInt($("#total-income").text()) + parseInt(transaction.amount)
-  );
   $("#name").val("");
   $("#amount").val("");
   Balance();
@@ -42,19 +41,25 @@ function Expense() {
     type: "expense",
   };
   transactions.push(transaction);
-  $("#total-expense").text(
-    parseInt($("#total-expense").text()) + parseInt(transaction.amount)
-  );
-
   $("#name").val(" ");
   $("#amount").val(" ");
   Balance();
   Table();
 }
 function Balance() {
-  $("#balance").text(
-    parseInt($("#total-income").text()) + parseInt($("#total-expense").text())
-  );
+  income = 0;
+  expense = 0;
+  transactions.forEach(function (e) {
+    if (e.type == "income") {
+      income += parseInt(e.amount);
+    } else if (e.type == "expense") {
+      expense += parseInt(e.amount);
+    }
+  });
+
+  $("#total-income").text(income);
+  $("#total-expense").text(expense);
+  $("#balance").text(income + expense);
 }
 
 function Table() {
@@ -74,15 +79,25 @@ function Table() {
       $("tbody").prepend(
         "<tr class='table-danger'> <td>" +
           element.name +
-          "</td> <td>" +
+          " </td> <td>" +
           element.amount +
-          "</td> <td>" +
+          " </td> <td>" +
           element.date +
-          "</td></tr>"
+          " </td></tr>"
       );
     }
   });
 }
+
+$("#table").on("click", "tr", function () {
+  var n = $(this).text().split(" ")[1];
+
+  transactions = transactions.filter((object) => object.name !== n);
+  console.log(transactions);
+
+  Table();
+  Balance();
+});
 
 Date.prototype.toDateInputValue = function () {
   var local = new Date(this);
