@@ -4,7 +4,9 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const app = express();
+
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect("mongodb://localhost/transaction", {
@@ -17,7 +19,7 @@ mongoose.connect("mongodb://localhost/transaction", {
 const transactionSchema = new Schema({
   name: String,
   amount: Number,
-  date: Number,
+  date: String,
   type: String,
 });
 const Transaction = mongoose.model("Transaction", transactionSchema);
@@ -33,6 +35,7 @@ app.get("/", function (req, res) {
         expense -= element.amount;
       }
     });
+
     res.render("home", {
       found: found.reverse(),
       income: income,
