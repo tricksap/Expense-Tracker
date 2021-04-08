@@ -18,19 +18,38 @@ const transactionSchema = new Schema({
   name: String,
   amount: Number,
   date: Number,
+  type: String,
 });
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
 app.get("/", function (req, res) {
-  res.render("home");
+  income = 0;
+  expense = 0;
+  Transaction.find({}, function (err, found) {
+    found.forEach(function (element) {
+      if (element.type === "income") {
+        income += element.amount;
+      } else {
+        expense -= element.amount;
+      }
+    });
+    res.render("home", {
+      found: found.reverse(),
+      income: income,
+      expense: expense,
+    });
+  });
 });
 
 app.post("/", function (req, res) {
   const transaction = new Transaction({
     name: req.body.name,
-    amount: req.body.name,
+    amount: req.body.amount,
+    date: req.body.date,
+    type: req.body.button,
   });
   transaction.save();
+  res.redirect("/");
 });
 
 app.listen(3000, function () {

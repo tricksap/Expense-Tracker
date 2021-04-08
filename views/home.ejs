@@ -22,18 +22,19 @@
 
       <div>
         <h5>Your Balance</h5>
-        <h1 id="balance">0</h1>
+        <h1 id="balance"><%=income+expense%></h1>
       </div>
 
       <div class="row">
         <div class="col-6">
           <h5>Income</h5>
-          <h1 id="total-income">0</h1>
+
+          <h1 id="total-income"><%=income%></h1>
         </div>
 
         <div class="col-6">
           <h5>Expense</h5>
-          <h1 id="total-expense">0</h1>
+          <h1 id="total-expense"><%=expense%></h1>
         </div>
       </div>
 
@@ -107,7 +108,21 @@
             <th scope="col">Date</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <%found.forEach(function(item){%> <%if (item.type == "income"){%>
+          <tr class="table-success">
+            <%} else if (item.type == "expense"){%>
+          </tr>
+
+          <tr class="table-danger">
+            <%}%>
+
+            <td><%=item.name%></td>
+            <td><%=item.amount%></td>
+            <td><%=item.date%></td>
+          </tr>
+          <% })%>
+        </tbody>
       </table>
     </div>
 
