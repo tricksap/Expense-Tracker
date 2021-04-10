@@ -44,6 +44,16 @@ app.get("/", function (req, res) {
   });
 });
 
+app.post("/delete", function (req, res) {
+  id = req.body.delete;
+  Transaction.deleteOne({ _id: id }, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.redirect("/");
+});
+
 app.post("/", function (req, res) {
   const transaction = new Transaction({
     name: req.body.name,
