@@ -143,12 +143,12 @@
       </table>
     </div>
 
-    <form action="/delete" method="POST">
+    <form action="/update" method="POST">
       <div class="modal fade" id="Modal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Delete</h5>
+              <h5 class="modal-title">Edit</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -156,7 +156,54 @@
               ></button>
             </div>
             <div class="modal-body">
-              Are you sure you want to delete this item?
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Name</span>
+                </div>
+                <input type="hidden" name="id" value="" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="changeName"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">Amount</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="changeAmount"
+                      autocomplete="off"
+                      id="amount"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">Date</span>
+                    <input
+                      type="changeDate"
+                      class="form-control"
+                      name="changeDate"
+                      id="date"
+                    />
+                  </div>
+                </div>
+              </div>
+              <button
+                type="submit"
+                name="button"
+                value="delete"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
             </div>
             <div class="modal-footer">
               <button
@@ -168,8 +215,8 @@
               </button>
               <button
                 type="submit"
-                name="delete"
-                value=""
+                name="button"
+                value="update"
                 class="btn btn-primary"
               >
                 Save changes

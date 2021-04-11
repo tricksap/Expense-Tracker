@@ -9,7 +9,14 @@ Date.prototype.toDateInputValue = function () {
 };
 
 $("#table").on("click", "tr", function (e) {
-  // e.preventDefault();
+  let clicked = $(this).text().replace(/\s+/g, " ").split(" ");
   var id = $(this).attr("value");
-  $('[name="delete"]').val(id);
+  let name = clicked[1];
+  let amount = clicked[2];
+  let date = clicked[3];
+
+  $('[name="id"]').val(id);
+  $('[name="changeName"]').val(name);
+  $('[name="changeAmount"]').val(amount);
+  $('[name="changeDate"]').val(date);
 });

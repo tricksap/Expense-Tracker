@@ -91,7 +91,7 @@ function Table() {
 
 $("#table").on("click", "tr", function () {
   var n = $(this).text().split(" ")[1];
-
+  console.log(n);
   transactions = transactions.filter((object) => object.name !== n);
   console.log(transactions);
 

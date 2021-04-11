@@ -44,13 +44,29 @@ app.get("/", function (req, res) {
   });
 });
 
-app.post("/delete", function (req, res) {
-  id = req.body.delete;
-  Transaction.deleteOne({ _id: id }, function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
+app.post("/update", function (req, res) {
+  let process = req.body.button;
+  let id = req.body.id;
+  let name = req.body.changeName;
+  let amount = req.body.changeAmount;
+  let date = req.body.changeDate;
+  if (process === "delete") {
+    Transaction.deleteOne({ _id: id }, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } else {
+    Transaction.updateOne(
+      { _id: id },
+      { name: name, amount: amount, date: date },
+      function (err) {
+        if (err) {
+          console.log(err);
+        }
+      }
+    );
+  }
   res.redirect("/");
 });
 
