@@ -15,7 +15,7 @@ I created this Expense tracker to practice my frontend and backend skills using 
 
 ## Technologies
 * HTML 5 
-* CSS 3
+* Bootstrap
 * JavaScript
 * Node.js
 * EJS
